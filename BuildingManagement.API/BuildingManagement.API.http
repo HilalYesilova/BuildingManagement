@@ -1,0 +1,6 @@
+@BuildingManagement.API_HostAddress = http://localhost:5118
+
+GET {{BuildingManagement.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
