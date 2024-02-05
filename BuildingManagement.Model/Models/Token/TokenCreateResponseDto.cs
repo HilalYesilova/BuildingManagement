@@ -1,4 +1,4 @@
-﻿namespace BuildingManagement.Model.Models
+﻿namespace BuildingManagement.Model.Models.Token
 {
     public class TokenCreateResponseDto
     {

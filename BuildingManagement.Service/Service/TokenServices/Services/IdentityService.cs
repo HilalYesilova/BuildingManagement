@@ -1,10 +1,12 @@
-﻿using BuildingManagement.Model.Models;
-using BuildingManagement.Model.Models.Shared;
+﻿using BuildingManagement.Model.Models.Shared;
 using BuildingManagement.Repository;
 using BuildingManagement.Service.Service.TokenServices.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using BuildingManagement.Entity;
+using System.Net.WebSockets;
+using BuildingManagement.Entity.Entities;
+using BuildingManagement.Model.Models.Admin;
 
 namespace BuildingManagement.Service.Service.TokenServices.Services;
 
@@ -16,8 +18,16 @@ public class IdentityService(
     {
         var User = new User
         {
+            Name = request.Name,
+            Surname = request.Surname,
             UserName = request.UserName,
-            Email = request.Email
+            PhoneNumber = request.PhoneNumber,
+            Email = request.Email,
+            TcNo = request.TcNo,
+            Apartment = new Apartment
+            {
+                Id = request.ApartmentId
+            }
         };
 
 
@@ -28,15 +38,6 @@ public class IdentityService(
             var errorList = result.Errors.Select(x => x.Description).ToList();
 
             return ResponseDto<Guid?>.Fail(errorList);
-        }
-
-
-        var resultAsClaim = await identityRepository.AddClaimAsync(User,
-            new Claim(ClaimTypes.DateOfBirth, request.BirthDate.ToShortDateString()));
-
-        if (!resultAsClaim.Succeeded)
-        {
-            return ResponseDto<Guid?>.Fail(resultAsClaim.Errors.Select(x => x.Description).ToList());
         }
         return ResponseDto<Guid?>.Success(User.Id);
     }
@@ -83,6 +84,42 @@ public class IdentityService(
         }
 
         return ResponseDto<string>.Success(string.Empty);
+    }
+
+    public async Task<ResponseDto<string>> DeleteUser(string email)
+    {
+        var result = await identityRepository.DeleteUserAsync(email);
+        if (!result.Succeeded)
+        {
+            var errorList = result.Errors.Select(x => x.Description).ToList();
+            return ResponseDto<string>.Fail(errorList);
+        }
+        return ResponseDto<string>.Success(string.Empty);
+    }
+
+    public async Task<ResponseDto<Guid?>> UpdateUser(UserCreateRequestDto request)
+    {
+        var User = new User
+        {
+            Name = request.Name,
+            Surname = request.Surname,
+            UserName = request.UserName,
+            PhoneNumber = request.PhoneNumber,
+            Email = request.Email,
+            TcNo = request.TcNo,
+            Apartment = new Apartment
+            {
+                Id = request.ApartmentId
+            }
+        };
+        var result = await identityRepository.UpdateUserAsync(User);
+        if (!result.Succeeded)
+        {
+            var errorList = result.Errors.Select(x => x.Description).ToList();
+
+            return ResponseDto<Guid?>.Fail(errorList);
+        }
+        return ResponseDto<Guid?>.Success(User.Id);
     }
 }
 

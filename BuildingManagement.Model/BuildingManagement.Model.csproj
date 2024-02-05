@@ -10,4 +10,8 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BuildingManagement.Entity\BuildingManagement.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

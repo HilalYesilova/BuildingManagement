@@ -1,5 +1,5 @@
-﻿using BuildingManagement.Model.Models;
-using BuildingManagement.Model.Models.Shared;
+﻿using BuildingManagement.Model.Models.Shared;
+using BuildingManagement.Model.Models.Token;
 using BuildingManagement.Service.Service.TokenServices.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

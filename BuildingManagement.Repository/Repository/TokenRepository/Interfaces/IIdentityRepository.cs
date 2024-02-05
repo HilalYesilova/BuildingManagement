@@ -12,5 +12,7 @@ namespace BuildingManagement.Repository
         Task<User?> FindByIdAsync(string userId);
         Task<IdentityResult> AddToRoleAsync(User user, string userRolName);
         Task<IdentityResult> CreateRoleAsync(UserRole userRole);
+        Task<IdentityResult> DeleteUserAsync(string email);
+        Task<IdentityResult> UpdateUserAsync(User user);
     }
 }

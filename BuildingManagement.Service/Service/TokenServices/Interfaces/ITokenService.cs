@@ -1,10 +1,10 @@
 ﻿using BuildingManagement.Model.Models.Shared;
-using BuildingManagement.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BuildingManagement.Model.Models.Token;
 
 namespace BuildingManagement.Service.Service.TokenServices.Interfaces
 {

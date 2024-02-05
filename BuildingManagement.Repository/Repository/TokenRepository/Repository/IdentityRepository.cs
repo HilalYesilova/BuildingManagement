@@ -27,21 +27,42 @@ namespace BuildingManagement.Repository.Repository.TokenRepository.Repository
 
         public async Task<bool> RoleExistsAsync(UserRole userRole)
         {
-            return  await roleManager.RoleExistsAsync(userRole.Name!);
+            return await roleManager.RoleExistsAsync(userRole.Name!);
         }
 
         public async Task<User?> FindByIdAsync(string userId)
         {
             return await userManager.FindByIdAsync(userId);
         }
-        public async Task<IdentityResult> AddToRoleAsync(User user,string userRolName)
+        public async Task<IdentityResult> AddToRoleAsync(User user, string userRolName)
         {
             return await userManager.AddToRoleAsync(user, userRolName);
         }
 
-        public Task<IdentityResult> CreateRoleAsync(UserRole userRole)
+        public async Task<IdentityResult> CreateRoleAsync(UserRole userRole)
         {
-            return roleManager.CreateAsync(userRole);
+            return await roleManager.CreateAsync(userRole);
+        }
+
+        public async Task<IdentityResult> DeleteUserAsync(string email)
+        {
+            var user = await UserManager.FindByEmailAsync(email);
+
+            if(user != null) return await UserManager.DeleteAsync(user);
+
+            return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            var existingUser = await UserManager.FindByEmailAsync(user.Email!);
+
+            if (existingUser == null) return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+
+            existingUser.UserName = user.UserName;
+            existingUser.Email = user.Email;
+
+            return await UserManager.UpdateAsync(existingUser);
         }
     }
 }
