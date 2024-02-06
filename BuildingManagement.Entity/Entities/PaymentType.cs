@@ -10,6 +10,6 @@ namespace BuildingManagement.Entity.Entities
     public class PaymentType
     {
         public int Id { get; set; }
-        public PaymentMethod Method { get; set; }
+        public PaymentTypes Method { get; set; }
     }
 }

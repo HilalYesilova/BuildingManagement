@@ -11,13 +11,10 @@ namespace BuildingManagement.Model.Models.Admin
     public class AssignDuesRequestDto
     {
         [Required]
-        public List<int> ApartmentIds { get; set; }
+        public int ApartmentIds { get; set; }
 
         [Required]
         public decimal Amount { get; set; }
-
-        [Required]
-        public PaymentMethod PaymentMethod { get; set; }
 
         [Required]
         public string Month { get; set; }
@@ -27,7 +24,5 @@ namespace BuildingManagement.Model.Models.Admin
 
         [Required]
         public int PaymentTypeId { get; set; }
-
-
     }
 }

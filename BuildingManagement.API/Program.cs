@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAutoMapper(typeof(Program)); // IMapper
 builder.Services.AddTokenServiceDIContainer();
 builder.Services.AddTokenRepositoryDIContainer();
 builder.Services.AddDbContext<AppDbContext>(options =>

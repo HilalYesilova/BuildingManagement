@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildingManagement.Service.Service.DuesServices
+namespace BuildingManagement.Service.Service.BillService
 {
-    public interface IDuesService
+    public interface IBillService
     {
-        Task<ResponseDto<string>> AssignDuesAsync(List<AssignDuesRequestDto> model);
+        Task<ResponseDto<string>> AddBillsAsync(AddBillRequestDto billRequest);
     }
 }

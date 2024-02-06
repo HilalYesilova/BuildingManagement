@@ -8,6 +8,8 @@ namespace BuildingManagement.Entity
         public string Name { get; set; } = default!;
         public string Surname { get; set; } = default!;
         public string TcNo { get; set; } = default!;
-        public Apartment Apartment { get; set; } = default!;
+
+        public int ApartmentId { get; set; }
+        public Apartment Apartment { get; set; }
     }
 }

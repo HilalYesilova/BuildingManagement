@@ -12,15 +12,16 @@ namespace BuildingManagement.Entity.Entities
         public int Id { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public DateTime PaymentDate { get; set; }
-        public string PaymentCategory { get; set; } // Association or Bill
         public decimal Amount { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
-        public int ApartmentId { get; set; }
         public int UserId { get; set; }
         public int PaymentTypeId { get; set; }
-        public PaymentType PaymentType { get; set; }
-        public Dues Dues { get; set; }
+        public PaymentTypes PaymentType { get; set; }
 
+        // Bir Payment, bir Apartment'a aittir (One-to-Many)
+        public int ApartmentId { get; set; }
+        public Apartment Apartment { get; set; }
+        public Dues Dues { get; set; }
     }
 }

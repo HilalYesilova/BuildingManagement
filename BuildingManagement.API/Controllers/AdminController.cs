@@ -5,13 +5,16 @@ using BuildingManagement.Service.Service.TokenServices.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BuildingManagement.Model.Models.Admin;
+using BuildingManagement.Service.Service.DuesServices;
+using Microsoft.EntityFrameworkCore;
+using BuildingManagement.Service.Service.BillService;
 
 namespace BuildingManagement.API.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
-public class AdminController(IdentityService identityService) : ControllerBase
+public class AdminController(IdentityService identityService,IDuesService duesService,IBillService billService) : ControllerBase
 {
 
     [HttpPost]
@@ -45,29 +48,46 @@ public class AdminController(IdentityService identityService) : ControllerBase
 
     // Daire başına ödenmesi gereken aidat bilgilerini toplu veya tek tek atama yapma
     [HttpPost]
-    public async Task<IActionResult> AssignDuesToApartments(@RequestBody List<DuesInformation> aidInformationList)
+    public async Task<IActionResult> AssignDuesToApartments(List<AssignDuesRequestDto> aidInformationList)
     {
-        
-        return Ok();
-        
+        var response = await duesService.AssignDuesAsync(aidInformationList);
+        if (response.AnyError) return BadRequest(response);
+
+        return Created("", response);
     }
 
     // Bina olarak ödenmesi gereken fatura bilgilerini aylık olarak girme
     [HttpPost]
-    public async Task<IActionResult> enterMonthlyBuildingBills(@RequestBody BuildingBill buildingBill)
+    public async Task<IActionResult> EnterMonthlyBuildingBills(AddBillRequestDto buildingBill)
     {
-       
-        return Ok();
-        
+        var response = await billService.AddBillsAsync(buildingBill);
+        if (response.AnyError) return BadRequest(response);
+
+        return Created("", response);
     }
 
     // Dairelerin yapmış olduğu ödemeleri görme
     [HttpGet]
-    public async Task<IActionResult> viewApartmentPayments()
+    public async Task<ActionResult<IEnumerable<ApartmentPaymentDTO>>> GetApartmentsPayments()
     {
-        
-        List<Payment> payments = new ArrayList<>(); 
-        return Ok();
+        var apartments = await _context.Apartments
+            .Include(a => a.Payments)
+            .ToListAsync();
+
+        var apartmentPayments = new List<ApartmentPaymentDTO>();
+
+        foreach (var apartment in apartments)
+        {
+            var apartmentPayment = new ApartmentPaymentDTO
+            {
+                ApartmentId = apartment.Id,
+                Payments = apartment.Payments.ToList()
+            };
+
+            apartmentPayments.Add(apartmentPayment);
+        }
+
+        return apartmentPayments;
     }
 
     // Aylık ve Yıllık olarak daire başına borç durumunu görme
