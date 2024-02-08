@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildingManagement.Repository.Repository.PaymentRepository
+namespace BuildingManagement.Repository.Repository.DebtRepository
 {
-    public interface IPaymentRepository
+    public interface IDebtRepository
     {
-        Task<IEnumerable<Apartment>> GetApartmentsPaymentsAsync();
+        Task<IEnumerable<Apartment>> GetAllDebtsAsync();
     }
 }

@@ -1,20 +1,20 @@
-﻿using Azure.Core;
-using BuildingManagement.Entity.Entities;
-using BuildingManagement.Entity;
-using BuildingManagement.Service.Service.TokenServices.Services;
+﻿using BuildingManagement.Service.Service.TokenServices.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BuildingManagement.Model.Models.Admin;
 using BuildingManagement.Service.Service.DuesServices;
-using Microsoft.EntityFrameworkCore;
 using BuildingManagement.Service.Service.BillService;
+using BuildingManagement.Model.Models.Payments.ApartmentPaymentDto;
+using BuildingManagement.Service.Service.PaymentServis;
+using BuildingManagement.Model.Models.Debt;
+using BuildingManagement.Service.Service.DebtServices;
 
 namespace BuildingManagement.API.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
-public class AdminController(IdentityService identityService,IDuesService duesService,IBillService billService) : ControllerBase
+public class AdminController(IdentityService identityService,IDuesService duesService,IBillService billService, IPaymentService paymentService, IDebtService debtService) : ControllerBase
 {
 
     [HttpPost]
@@ -68,44 +68,32 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
 
     // Dairelerin yapmış olduğu ödemeleri görme
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ApartmentPaymentDTO>>> GetApartmentsPayments()
+    public async Task<ActionResult<IEnumerable<ApartmentPaymentDto>>> GetApartmentsPayments()
     {
-        var apartments = await _context.Apartments
-            .Include(a => a.Payments)
-            .ToListAsync();
+        var response = await paymentService.GetApartmentsPayments();
+        if (response.AnyError) return BadRequest(response);
 
-        var apartmentPayments = new List<ApartmentPaymentDTO>();
-
-        foreach (var apartment in apartments)
-        {
-            var apartmentPayment = new ApartmentPaymentDTO
-            {
-                ApartmentId = apartment.Id,
-                Payments = apartment.Payments.ToList()
-            };
-
-            apartmentPayments.Add(apartmentPayment);
-        }
-
-        return apartmentPayments;
+        return Ok(response);
     }
 
     // Aylık ve Yıllık olarak daire başına borç durumunu görme
     [HttpGet]
-    public async Task<IActionResult> viewApartmentDebts(@PathVariable Long apartmentId)
+    public async Task<ActionResult<IEnumerable<DebtResponseDto>>> ViewApartmentsDebts()
     {
         
-        DebtStatus debtStatus = new DebtStatus(); 
-        return Ok(debtStatus);
+        var response = await debtService.GetApartmentsDebts();
+        if (response.AnyError) return BadRequest(response);
+
+        return Ok(response);
     }
 
-    // Düzenli ödeme yapan kullanıcıları görme (BONUS)
-    [HttpGet]
-    public async Task<IActionResult> viewRegularPayers()
-    {
+    //// Düzenli ödeme yapan kullanıcıları görme (BONUS)
+    //[HttpGet]
+    //public async Task<IActionResult> viewRegularPayers()
+    //{
        
-        List<User> regularPayers = new ArrayList<>(); 
-        return Ok();
-    }
+    //    List<User> regularPayers = new ArrayList<>(); 
+    //    return Ok();
+    //}
 }
 

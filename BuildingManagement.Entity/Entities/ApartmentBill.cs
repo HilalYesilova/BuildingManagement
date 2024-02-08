@@ -16,5 +16,6 @@ namespace BuildingManagement.Entity.Entities
         public decimal ElectricityAmount { get; set; } // Elektrik faturası tutarı
         public decimal WaterAmount { get; set; } // Su faturası tutarı
         public decimal GasAmount { get; set; } // Doğalgaz faturası tutarı
+        public bool IsPaid { get; set; }= false;
     }
 }
