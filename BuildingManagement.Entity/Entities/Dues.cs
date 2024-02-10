@@ -13,12 +13,12 @@ namespace BuildingManagement.Entity.Entities
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
         public string Month { get; set; } = default!;
-        public string Year { get; set; }
+        public string Year { get; set; } = default!;
 
         // Bir Dues, bir Apartment'a aittir (One-to-Many)
-        public int ApartmentId { get; set; }
-        public Apartment Apartment { get; set; }
-        public Payment Payment { get; set; }
+        public int? ApartmentId { get; set; }
+        public Apartment? Apartment { get; set; }
+        //public Payment Payment { get; set; }
     }
 
 }

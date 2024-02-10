@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using BuildingManagement.Entity;
+using Azure.Core;
 
 namespace BuildingManagement.Repository.Repository.TokenRepository.Repository
 {
@@ -61,6 +62,10 @@ namespace BuildingManagement.Repository.Repository.TokenRepository.Repository
 
             existingUser.UserName = user.UserName;
             existingUser.Email = user.Email;
+            existingUser.Name = user.Name;
+            existingUser.Surname = user.Surname;
+            existingUser.PhoneNumber = user.PhoneNumber;
+            existingUser.TcNo = user.TcNo;
 
             return await UserManager.UpdateAsync(existingUser);
         }

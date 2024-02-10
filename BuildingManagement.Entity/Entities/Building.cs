@@ -13,6 +13,6 @@ namespace BuildingManagement.Entity.Entities
         public string Address { get; set; }
 
         // one to many
-        public ICollection<Apartment> Apartments { get; set; }
+        public ICollection<Apartment>? Apartments { get; set; }
     }
 }

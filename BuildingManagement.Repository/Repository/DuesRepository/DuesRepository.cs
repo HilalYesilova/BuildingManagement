@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace BuildingManagement.Repository.Repository.AdminRepository
 {
-    public class DuesRepository(AppDbContext _context) : IDuesRepository
+    public class DuesRepository(AppDbContext context) : IDuesRepository
     {
+        private readonly AppDbContext _context = context;
         public async Task<List<Apartment>> GetAllApartmentsAsync(List<Dues> dues)
         {
-
-            return await _context.Apartments
-                        .Where(a => dues.Any(d => d.ApartmentId == a.Id))
-                        .ToListAsync();
+            var apartmentIds = dues.Select(d => d.ApartmentId).ToList();
+            var apartments = await _context.Apartments
+                                        .Where(a => apartmentIds.Contains(a.Id))
+                                        .ToListAsync();
+            return apartments;
         }
 
         public async Task AddDuesToApartments(List<Dues> dues)

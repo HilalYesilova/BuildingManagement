@@ -7,14 +7,16 @@ using BuildingManagement.Entity;
 using System.Net.WebSockets;
 using BuildingManagement.Entity.Entities;
 using BuildingManagement.Model.Models.Admin;
+using BuildingManagement.Service.Service.ApartmentServices;
+using Azure;
 
 namespace BuildingManagement.Service.Service.TokenServices.Services;
 
 public class IdentityService(
-    IIdentityRepository identityRepository) : IIdentityService
+    IIdentityRepository identityRepository, ApartmentService apartmentService) : IIdentityService
 {
 
-    public async Task<ResponseDto<Guid?>> CreateUser(UserCreateRequestDto request)
+    public async Task<ResponseDto<int?>> CreateUser(UserCreateRequestDto request)
     {
         var User = new User
         {
@@ -24,12 +26,8 @@ public class IdentityService(
             PhoneNumber = request.PhoneNumber,
             Email = request.Email,
             TcNo = request.TcNo,
-            Apartment = new Apartment
-            {
-                Id = request.ApartmentId
-            }
+            ApartmentId = request.ApartmentId
         };
-
 
         var result = await identityRepository.CreateUser(User, request.Password);
 
@@ -37,9 +35,12 @@ public class IdentityService(
         {
             var errorList = result.Errors.Select(x => x.Description).ToList();
 
-            return ResponseDto<Guid?>.Fail(errorList);
+            return ResponseDto<int?>.Fail(errorList);
         }
-        return ResponseDto<Guid?>.Success(User.Id);
+
+        var apartmentUser = await apartmentService.AddUserToApartment(request.ApartmentId, User);
+        if (apartmentUser.AnyError) return ResponseDto<int?>.Fail("Kullanıcıyı Daireye atama işleminde sorun ile karşılaşıldı!");
+        return ResponseDto<int?>.Success(User.Id);
     }
 
     public async Task<ResponseDto<string>> CreateRole(RoleCreateRequestDto request)
@@ -97,29 +98,25 @@ public class IdentityService(
         return ResponseDto<string>.Success(string.Empty);
     }
 
-    public async Task<ResponseDto<Guid?>> UpdateUser(UserCreateRequestDto request)
+    public async Task<ResponseDto<int?>> UpdateUser(UserUpdateRequestDto request)
     {
         var User = new User
         {
             Name = request.Name,
             Surname = request.Surname,
             UserName = request.UserName,
-            PhoneNumber = request.PhoneNumber,
             Email = request.Email,
-            TcNo = request.TcNo,
-            Apartment = new Apartment
-            {
-                Id = request.ApartmentId
-            }
+            PhoneNumber = request.PhoneNumber,
+            TcNo = request.TcNo
         };
         var result = await identityRepository.UpdateUserAsync(User);
         if (!result.Succeeded)
         {
             var errorList = result.Errors.Select(x => x.Description).ToList();
 
-            return ResponseDto<Guid?>.Fail(errorList);
+            return ResponseDto<int?>.Fail(errorList);
         }
-        return ResponseDto<Guid?>.Success(User.Id);
+        return ResponseDto<int?>.Success(User.Id);
     }
 }
 

@@ -18,7 +18,7 @@ namespace BuildingManagement.Service.Service.PaymentServis
         {
             var apartments = paymentRepository.GetApartmentsPaymentsAsync();
             var apartmentPayments = new List<ApartmentPaymentDto>();
-            if(apartments != null) return ResponseDto<IEnumerable<ApartmentPaymentDto>>.Fail("Apartmanlara ait ödeme bulunamadı");
+            if(apartments == null) return ResponseDto<IEnumerable<ApartmentPaymentDto>>.Fail("Apartmanlara ait ödeme bulunamadı");
             foreach (var apartment in apartments.Result)
             {
                 var apartmentPayment = new ApartmentPaymentDto

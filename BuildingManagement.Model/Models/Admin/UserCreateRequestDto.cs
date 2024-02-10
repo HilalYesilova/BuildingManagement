@@ -11,4 +11,14 @@
         public string TcNo { get; set; } = default!;
         public int ApartmentId { get; set; } = default!;
     }
+    public class ApartmentCreateRequestDto
+    {
+        public string BlockInfo { get; set; } = default!;
+        public bool OccupancyStatus { get; set; }
+        public string ApartmentType { get; set; } = default!;
+        public int FloorNumber { get; set; }
+        public int ApartmentNumber { get; set; }
+        public string OwnerOrTenant { get; set; } = default!;
+        public int BuildingId { get; set; } = 1;
+    }
 }

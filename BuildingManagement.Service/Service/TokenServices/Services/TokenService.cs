@@ -17,19 +17,19 @@ public class TokenService(IConfiguration configuration, ITokenRepository tokenRe
     public async Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDto request)
     {
 
-        var hasUser = await tokenRepository.FindByNameAsync(request.UserName);
+        var hasUser = await tokenRepository.FindUserAsync(request.TcNo,request.PhoneNumber);
 
         if (hasUser is null)
         {
             return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
         }
 
-        var checkPassword = await tokenRepository.CheckPasswordAsync(hasUser!, request.Password);
+        //var checkPassword = await tokenRepository.CheckPasswordAsync(hasUser!, request.Password);
 
-        if (checkPassword == false)
-        {
-            return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
-        }
+        //if (checkPassword == false)
+        //{
+        //    return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
+        //}
 
         var signatureKey = configuration.GetSection("TokenOptions")["SignatureKey"]!;
         var tokenExpireAsHour = configuration.GetSection("TokenOptions")["Expire"]!;

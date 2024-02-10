@@ -8,11 +8,10 @@ namespace BuildingManagement.API.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class TokenController(IdentityService identityService, TokenService tokenService) : ControllerBase
 {
-    
-
-    [HttpPost]
+    [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> CreateToken(TokenCreateRequestDto request)
     {

@@ -13,15 +13,18 @@ namespace BuildingManagement.Entity.Entities
         public PaymentMethod PaymentMethod { get; set; }
         public DateTime PaymentDate { get; set; }
         public decimal Amount { get; set; }
-        public string Month { get; set; }
-        public string Year { get; set; }
+        public string Month { get; set; } = default!;
+        public string Year { get; set; } = default!;
         public int UserId { get; set; }
-        public int PaymentTypeId { get; set; }
-        public PaymentTypes PaymentType { get; set; }
+        public int? PaymentTypeId { get; set; }
+        public PaymentType? PaymentType { get; set; } = default!;
 
         // Bir Payment, bir Apartment'a aittir (One-to-Many)
-        public int ApartmentId { get; set; }
-        public Apartment Apartment { get; set; }
-        public Dues Dues { get; set; }
+        public int? ApartmentId { get; set; }
+        public Apartment? Apartment { get; set; }
+        public int? DuesId { get; set; }
+        public Dues? Dues { get; set; }
+        public int? ApartmentBillId { get; set; }
+        public ApartmentBill? ApartmentBill { get; set; }
     }
 }

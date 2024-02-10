@@ -8,15 +8,29 @@ namespace BuildingManagement.Model.Models.User
 {
     public class UserDebtAndDuesInfoResponse
     {
-        public Guid UserId { get; set; }
-        public string UserName { get; set; } = default!;
-        public IEnumerable<DebtAndDuesInfo>? debtAndDuesInfos { get; set; }
+        public int UserId { get; set; }
+        public string? UserName { get; set; }
+        public DebtAndDuesInfo? debtAndDuesInfos { get; set; }
     }
 
     public class DebtAndDuesInfo
     {
-        public DateTime Month { get; set; }
-        public string? Dues { get; set; }
+        public IEnumerable<DebtInfo>? debtInfos { get; set; }
+        public IEnumerable<DuesInfo>? duesInfos { get; set; }
+    }
+
+    public class DebtInfo
+    {
+        public string Month { get; set; } = default!;
+        public string Year { get; set; } = default!;
         public string? Debt { get; set; }
+        public bool IsPaid { get; set; }
+    }
+    public class DuesInfo
+    {
+        public string Month { get; set; } = default!;
+        public string Year { get; set; } = default!;
+        public string? Dues { get; set; }
+        public bool IsPaid { get; set; }
     }
 }

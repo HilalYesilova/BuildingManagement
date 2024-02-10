@@ -22,13 +22,261 @@ namespace BuildingManagement.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Apartment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApartmentNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApartmentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BlockInfo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BuildingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FloorNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OccupancyStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OwnerOrTenant")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Apartments");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.ApartmentBill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ApartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ElectricityAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GasAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Month")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("WaterAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
+
+                    b.ToTable("ApartmentBills");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Bill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ElectricityAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GasAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Month")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("WaterAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.ToTable("Bills");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Building", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Buildings");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Dues", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ApartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Month")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
+
+                    b.ToTable("Dues");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ApartmentBillId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApartmentId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DuesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Month")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApartmentBillId");
+
+                    b.HasIndex("ApartmentId");
+
+                    b.HasIndex("ApartmentId1");
+
+                    b.HasIndex("DuesId")
+                        .IsUnique()
+                        .HasFilter("[DuesId] IS NOT NULL");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentTypes");
+                });
+
             modelBuilder.Entity("BuildingManagement.Entity.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -48,6 +296,10 @@ namespace BuildingManagement.Repository.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -66,6 +318,14 @@ namespace BuildingManagement.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TcNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -90,9 +350,11 @@ namespace BuildingManagement.Repository.Migrations
 
             modelBuilder.Entity("BuildingManagement.Entity.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -116,7 +378,7 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,8 +392,8 @@ namespace BuildingManagement.Repository.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -140,7 +402,7 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,8 +416,8 @@ namespace BuildingManagement.Repository.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -164,7 +426,7 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -175,8 +437,8 @@ namespace BuildingManagement.Repository.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -185,13 +447,13 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -200,10 +462,10 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -219,7 +481,84 @@ namespace BuildingManagement.Repository.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Apartment", b =>
+                {
+                    b.HasOne("BuildingManagement.Entity.Entities.Building", "Building")
+                        .WithMany("Apartments")
+                        .HasForeignKey("BuildingId");
+
+                    b.HasOne("BuildingManagement.Entity.User", "User")
+                        .WithOne("Apartment")
+                        .HasForeignKey("BuildingManagement.Entity.Entities.Apartment", "UserId");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.ApartmentBill", b =>
+                {
+                    b.HasOne("BuildingManagement.Entity.Entities.Apartment", "Apartment")
+                        .WithMany("ApartmentBills")
+                        .HasForeignKey("ApartmentId");
+
+                    b.Navigation("Apartment");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Bill", b =>
+                {
+                    b.HasOne("BuildingManagement.Entity.Entities.Building", "Building")
+                        .WithMany()
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Dues", b =>
+                {
+                    b.HasOne("BuildingManagement.Entity.Entities.Apartment", "Apartment")
+                        .WithMany("Dues")
+                        .HasForeignKey("ApartmentId");
+
+                    b.Navigation("Apartment");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Payment", b =>
+                {
+                    b.HasOne("BuildingManagement.Entity.Entities.ApartmentBill", "ApartmentBill")
+                        .WithMany()
+                        .HasForeignKey("ApartmentBillId");
+
+                    b.HasOne("BuildingManagement.Entity.Entities.Apartment", "Apartment")
+                        .WithMany()
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("BuildingManagement.Entity.Entities.Apartment", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("ApartmentId1");
+
+                    b.HasOne("BuildingManagement.Entity.Entities.Dues", "Dues")
+                        .WithOne()
+                        .HasForeignKey("BuildingManagement.Entity.Entities.Payment", "DuesId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("BuildingManagement.Entity.Entities.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId");
+
+                    b.Navigation("Apartment");
+
+                    b.Navigation("ApartmentBill");
+
+                    b.Navigation("Dues");
+
+                    b.Navigation("PaymentType");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("BuildingManagement.Entity.UserRole", null)
                         .WithMany()
@@ -228,7 +567,7 @@ namespace BuildingManagement.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("BuildingManagement.Entity.User", null)
                         .WithMany()
@@ -237,7 +576,7 @@ namespace BuildingManagement.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("BuildingManagement.Entity.User", null)
                         .WithMany()
@@ -246,7 +585,7 @@ namespace BuildingManagement.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
                     b.HasOne("BuildingManagement.Entity.UserRole", null)
                         .WithMany()
@@ -261,13 +600,32 @@ namespace BuildingManagement.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("BuildingManagement.Entity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Apartment", b =>
+                {
+                    b.Navigation("ApartmentBills");
+
+                    b.Navigation("Dues");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.Entities.Building", b =>
+                {
+                    b.Navigation("Apartments");
+                });
+
+            modelBuilder.Entity("BuildingManagement.Entity.User", b =>
+                {
+                    b.Navigation("Apartment");
                 });
 #pragma warning restore 612, 618
         }

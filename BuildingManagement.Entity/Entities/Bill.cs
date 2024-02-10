@@ -10,7 +10,7 @@ namespace BuildingManagement.Entity.Entities
     {
         public int Id { get; set; }
         public int BuildingId { get; set; }
-        public Building Building { get; set; }
+        public Building? Building { get; set; }
 
         public DateTime Month { get; set; } 
         public decimal ElectricityAmount { get; set; }

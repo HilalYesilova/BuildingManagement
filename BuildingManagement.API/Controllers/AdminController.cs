@@ -3,20 +3,43 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BuildingManagement.Model.Models.Admin;
 using BuildingManagement.Service.Service.DuesServices;
-using BuildingManagement.Service.Service.BillService;
+using BuildingManagement.Service.Service.BillServices;
 using BuildingManagement.Model.Models.Payments.ApartmentPaymentDto;
 using BuildingManagement.Service.Service.PaymentServis;
 using BuildingManagement.Model.Models.Debt;
 using BuildingManagement.Service.Service.DebtServices;
+using BuildingManagement.Service.Service.ApartmentServices;
+using BuildingManagement.Service.Service.UserServices;
 
 namespace BuildingManagement.API.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-[Authorize(Roles = "Admin")]
-public class AdminController(IdentityService identityService,IDuesService duesService,IBillService billService, IPaymentService paymentService, IDebtService debtService) : ControllerBase
+[ApiVersion("1.0")]
+[Authorize]
+public class AdminController(IdentityService identityService, IDuesService duesService, IBillService billService, IPaymentService paymentService, IDebtService debtService, IApartmentService apartmentService, IUserService userService) : ControllerBase
 {
+    /// <summary>
+    /// Yönetici, Apartman Dairelerini Sisteme Tek Tek Ekler
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> AddApartmentsToBuilding(ApartmentCreateRequestDto request)
+    {
+        var response = await apartmentService.AddApartmentToBuilding(request);
+        if (response.AnyError) return BadRequest(response);
 
+        return Created("", response);
+    }
+
+    /// <summary>
+    /// Yönetici, Kullanıcı Oluşturarak Dairelere Atama işlemini Yapar
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> CreateUser(UserCreateRequestDto request)
     {
@@ -26,8 +49,14 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return Created("", response);
     }
 
+    /// <summary>
+    /// Yönetici, Kullanıcı Bilgilerini Günceller. Not: email ile arama işlemi gerçekleştirir.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<IActionResult> UpdateUser([FromBody] UserCreateRequestDto request)
+    public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequestDto request)
     {
         var response = await identityService.UpdateUser(request);
 
@@ -36,6 +65,13 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return Created("", response);
     }
 
+
+    /// <summary>
+    /// Yönetici, Kullanıcıları Silebilir.
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{email}")]
     public async Task<IActionResult> DeleteUser(string email)
     {
@@ -46,7 +82,12 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return NoContent();
     }
 
-    // Daire başına ödenmesi gereken aidat bilgilerini toplu veya tek tek atama yapma
+    /// <summary>
+    /// Yönetici,Daire başına ödenmesi gereken aidat bilgilerini toplu veya tek tek atama yapar.
+    /// </summary>
+    /// <param name="aidInformationList"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> AssignDuesToApartments(List<AssignDuesRequestDto> aidInformationList)
     {
@@ -56,7 +97,12 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return Created("", response);
     }
 
-    // Bina olarak ödenmesi gereken fatura bilgilerini aylık olarak girme
+    /// <summary>
+    /// Yönetici, Bina olarak ödenmesi gereken fatura bilgilerini aylık olarak girer. Sql trigger ile dolu olan Dairelere atama yapar
+    /// </summary>
+    /// <param name="buildingBill"></param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> EnterMonthlyBuildingBills(AddBillRequestDto buildingBill)
     {
@@ -66,7 +112,12 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return Created("", response);
     }
 
-    // Dairelerin yapmış olduğu ödemeleri görme
+
+    /// <summary>
+    /// Yönetici, Dairelerin yapmış olduğu ödemeleri görebilir.
+    /// </summary>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ApartmentPaymentDto>>> GetApartmentsPayments()
     {
@@ -76,24 +127,31 @@ public class AdminController(IdentityService identityService,IDuesService duesSe
         return Ok(response);
     }
 
-    // Aylık ve Yıllık olarak daire başına borç durumunu görme
+    /// <summary>
+    /// Yönetici,Aylık ve Yıllık olarak daire başına borç durumunu görebilir
+    /// </summary>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DebtResponseDto>>> ViewApartmentsDebts()
     {
-        
         var response = await debtService.GetApartmentsDebts();
         if (response.AnyError) return BadRequest(response);
 
         return Ok(response);
     }
 
-    //// Düzenli ödeme yapan kullanıcıları görme (BONUS)
-    //[HttpGet]
-    //public async Task<IActionResult> viewRegularPayers()
-    //{
-       
-    //    List<User> regularPayers = new ArrayList<>(); 
-    //    return Ok();
-    //}
+    /// <summary>
+    /// Yönetici, düzenli ödeme yapan kullanıcıları görebilir (BONUS)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> ViewRegularPayers()
+    {
+        var response = await userService.UserRegularPayment();
+        if (response.AnyError) return BadRequest(response);
+
+        return Ok(response);
+    }
 }
 

@@ -10,18 +10,36 @@ using System.Threading.Tasks;
 
 namespace BuildingManagement.Repository.Repository.UserRepository
 {
-    public class UserRepository(AppDbContext _context) : IUserRepository
+    public class UserRepository(AppDbContext context) : IUserRepository
     {
-        public async Task<Apartment?> GetApartmentByUserId(Guid id)
+        private readonly AppDbContext _context = context;
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+        public async Task<Apartment?> GetApartmentByUserId(int id)
         {
             return await _context.Apartments.Where(s => s.User.Id == id).FirstOrDefaultAsync();
         }
-
-        public async Task<User?> GetUserAsync(Guid id)
+        public async Task<User?> GetUserAsync(int id)
         {
             return await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<ApartmentBill?>> GetBillsInfo(Guid id)
+
+        public async Task<User?> GetUserByPhoneAsync(string phone)
+        {
+            return await _context.Users.Where(u => u.PhoneNumber == phone).FirstOrDefaultAsync();
+        }
+        public async Task<User?> GetUserByApartmentIdAsync(int apartmentId)
+        {
+            return await _context.Users.Where(u => u.ApartmentId == apartmentId).FirstOrDefaultAsync();
+        }
+        public async Task<Apartment?> GetUserApartmentAsync(int apartmentId)
+        {
+            return await _context.Apartments.Where(a => a.Id == apartmentId).FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<ApartmentBill?>> GetBillsInfoAsync(int id)
         {
             var user = await _context.Users
                 .Include(u => u.Apartment)
@@ -30,24 +48,11 @@ namespace BuildingManagement.Repository.Repository.UserRepository
             var bills = await _context.ApartmentBills
                 .Include(ab => ab.Apartment)
                 .Where(ab => ab.Apartment.Id == user.ApartmentId).ToListAsync();
-            //.Select(ab => new
-            //{
-            //    ab.Id,
-            //    ab.Month,
-            //    ab.ElectricityAmount,
-            //    ab.WaterAmount,
-            //    ab.GasAmount,
-            //    ab.IsPaid,
-            //    Type = "Bill",
-            //    Amount = 0m // Fatura sorgusu olduğu için aidat tutarı 0 olacak
-            //})
-            //.ToListAsync();
 
             return bills;
-
         }
 
-        public async Task<IEnumerable<Dues?>> GetDuesInfo(Guid id)
+        public async Task<IEnumerable<Dues?>> GetDuesInfoAsync(int id)
         {
             var user = await _context.Users
                 .Include(u => u.Apartment)
@@ -55,7 +60,15 @@ namespace BuildingManagement.Repository.Repository.UserRepository
             var dues = await _context.Dues
                 .Where(d => d.ApartmentId == user.ApartmentId).ToListAsync();
             return dues;
+        }
 
+        public async Task UpdateDuesAsync(Dues dues)
+        {
+            _context.Update(dues);
+        }
+        public async Task UpdateBillAsync(ApartmentBill bill)
+        {
+            _context.Update(bill);
         }
     }
 }

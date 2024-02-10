@@ -2,7 +2,7 @@
 
 namespace BuildingManagement.Entity
 {
-    public class UserRole : IdentityRole<Guid>
+    public class UserRole : IdentityRole<int>
     {
     }
 }
