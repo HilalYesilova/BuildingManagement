@@ -3,6 +3,7 @@
 ## Site Yönetim Sistemi
 
 Bu proje, bir apartman veya site yönetimi için backend işlemlerini gerçekleştiren bir API'dir. API, dairelerin ve kullanıcıların yönetimini sağlar, ayrıca aidat ve fatura bilgilerini takip eder.
+Endpointlere atılacak istekler Postman ortamında işleyiş bazlı gruplandırılmış ve hazırlanmıştır. İstekleri atabilmek adına _BUILDING MANAGEMENT API.postman_collection.json_ dosyasını Postman'e import edebilirsiniz.
 
 ## Gereksinimler
 * .NET 8 API kullanılarak * oluşturulmuştur.
