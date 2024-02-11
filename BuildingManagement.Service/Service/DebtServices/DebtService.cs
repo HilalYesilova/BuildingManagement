@@ -13,26 +13,28 @@ public class DebtService(IDebtRepository debtRepository) : IDebtService
 
         foreach (var apartment in apartments.Where(s => s.OccupancyStatus).ToList())
         {
-            var apartmentDebts = apartments
-                                            .Where(a => a.Id == apartment.Id)
-                                            .SelectMany(s => s.ApartmentBills)
-                                            .Where(b => !b.IsPaid);
+            var apartmentBills = await debtRepository.GetAllBillsAsync(apartment.Id);
+
+            if (apartmentBills == null) return ResponseDto<IEnumerable<DebtResponseDto>>.Fail("Tanımlı Fatura Bulunamadı!");
+
+            var apartmentDebts = apartmentBills.Where(a => !a.IsPaid).ToList();
 
             decimal monthlyDebt = apartmentDebts != null ? apartmentDebts.Sum(b => b.ElectricityAmount + b.WaterAmount + b.GasAmount) : 0;
 
             var yearlyDebts = apartmentDebts
-                                        .GroupBy(b => b.Year)
-                                        .Select(group => new
-                                        {
-                                            Year = group.Key,
-                                            TotalDebt = group.Sum(b => b.ElectricityAmount + b.WaterAmount + b.GasAmount)
-                                        });
+                .GroupBy(b => b.Year)
+                .Select(group => new
+                {
+                    Year = group.Key,
+                    TotalDebt = group.Sum(b => b.ElectricityAmount + b.WaterAmount + b.GasAmount)
+                })
+                .ToList();
 
             var debt = new DebtResponseDto
             {
                 ApartmentId = apartment.Id,
                 MonthlyDebt = monthlyDebt.ToString(),
-                AnnualDebt = yearlyDebts.ToString(),
+                AnnualDebt = yearlyDebts.Count > 0 ? yearlyDebts[0].ToString() : "0",
             };
             debts.Add(debt);
         }

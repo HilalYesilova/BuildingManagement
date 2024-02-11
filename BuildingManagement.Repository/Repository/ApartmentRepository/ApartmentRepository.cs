@@ -39,4 +39,9 @@ public class ApartmentRepository(AppDbContext context) : IApartmentRepository
         }
         return userId;
     }
+
+    public async Task<IEnumerable<Apartment>> GetAllAsync()
+    {
+        return await _context.Apartments.ToListAsync();
+    }
 }

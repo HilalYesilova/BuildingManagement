@@ -153,9 +153,9 @@ public class UserService(IUserRepository userRepository, IUnitOfWork unitOfWork,
             var userList = await userRepository.GetAllUsers();
             var pastYear = DateTime.Now.AddYears(-1);
             var regularUsers = new List<UserRegularPayment>();
-            foreach (var user in userList)
+            foreach (var user in userList.Where(u=>u.ApartmentId != null))
             {
-                var pastPayments = await paymentRepository.GetAllPaymentDataByApartmentId(user.Apartment!.Id, pastYear.Year.ToString());
+                var pastPayments = await paymentRepository.GetAllPaymentDataByApartmentId((int)user.ApartmentId, pastYear.Year.ToString());
                 bool isRegularPayment = PaymentHelper.CheckRegularPayment(pastPayments);
                 if (isRegularPayment)
                 {

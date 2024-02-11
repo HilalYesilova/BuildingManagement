@@ -10,4 +10,8 @@ public class DebtRepository(AppDbContext context) : IDebtRepository
     {
         return await _context.Apartments.Where(a => a.OccupancyStatus).ToListAsync();
     }
+    public async Task<IEnumerable<ApartmentBill>> GetAllBillsAsync(int apartmentId)
+    {
+        return await _context.ApartmentBills.Where(b=>b.ApartmentId== apartmentId).ToListAsync();
+    }
 }

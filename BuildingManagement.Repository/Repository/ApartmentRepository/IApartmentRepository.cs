@@ -9,4 +9,5 @@ public interface IApartmentRepository
     Task<Building> GetBuildingInfo();
     Task AddUserToApartmentAsync(int apartmentId, User user);
     Task<int?> GetApartmentUserIdAsync(int apartmentId);
+    Task<IEnumerable<Apartment>> GetAllAsync();
 }
