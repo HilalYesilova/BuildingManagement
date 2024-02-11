@@ -1,18 +1,12 @@
 ﻿using BuildingManagement.Entity;
 using BuildingManagement.Entity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BuildingManagement.Repository.Repository.ApartmentRepository
+namespace BuildingManagement.Repository.Repository.ApartmentRepository;
+
+public interface IApartmentRepository
 {
-    public interface IApartmentRepository
-    {
-        Task AddApartmentToBuildingAsync(Apartment apartment);
-        Task<Building> GetBuildingInfo();
-        Task AddUserToApartmentAsync(int apartmentId, User user);
-        Task<int?> GetApartmentUserIdAsync(int apartmentId);
-    }
+    Task AddApartmentToBuildingAsync(Apartment apartment);
+    Task<Building> GetBuildingInfo();
+    Task AddUserToApartmentAsync(int apartmentId, User user);
+    Task<int?> GetApartmentUserIdAsync(int apartmentId);
 }

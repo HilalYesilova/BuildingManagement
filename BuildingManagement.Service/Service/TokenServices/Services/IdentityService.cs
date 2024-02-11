@@ -2,20 +2,15 @@
 using BuildingManagement.Repository;
 using BuildingManagement.Service.Service.TokenServices.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using BuildingManagement.Entity;
-using System.Net.WebSockets;
-using BuildingManagement.Entity.Entities;
 using BuildingManagement.Model.Models.Admin;
 using BuildingManagement.Service.Service.ApartmentServices;
-using Azure;
 
 namespace BuildingManagement.Service.Service.TokenServices.Services;
 
 public class IdentityService(
     IIdentityRepository identityRepository, ApartmentService apartmentService) : IIdentityService
 {
-
     public async Task<ResponseDto<int?>> CreateUser(UserCreateRequestDto request)
     {
         var hasUser = await apartmentService.GetApartmentUserIdAsync(request.ApartmentId);

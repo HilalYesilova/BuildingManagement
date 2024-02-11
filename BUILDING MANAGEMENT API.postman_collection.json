@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "f6b3ee6e-cda1-4f85-8546-13204a2c2510",
+		"name": "BUILDING MANAGEMENT API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19944450"
+	},
+	"item": [
+		{
+			"name": "Admin Endpoints",
+			"item": [
+				{
+					"name": "Add Apartments To Building",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blockInfo\": \"A\",\r\n  \"occupancyStatus\": true,\r\n  \"apartmentType\": \"2+1\",\r\n  \"floorNumber\": 1,\r\n  \"apartmentNumber\": 1,\r\n  \"ownerOrTenant\": \"tenant\",\r\n  \"buildingId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/AddApartmentsToBuilding",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"AddApartmentsToBuilding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"Hilal1\",\r\n  \"name\": \"Hilal\",\r\n  \"surname\": \"Test\",\r\n  \"email\": \"hilal1@gmail.com\",\r\n  \"phoneNumber\": \"123654789\",\r\n  \"password\": \"Test123\",\r\n  \"tcNo\": \"123321123\",\r\n  \"apartmentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/CreateUser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role To User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiI5NjZjNzM2Zi05YjM4LTRmY2QtYjNjYy03Y2IxZmMwYTQ4MTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODI0NzU2OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.HEjDwP-iImbPMPY-BEsBdhflXl-__pNlUB4UArwnLg4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"2\",\r\n  \"roleName\": \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Token/AssignRoleToUser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Token",
+								"AssignRoleToUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"Hilal1\",\r\n  \"name\": \"Hilal\",\r\n  \"surname\": \"Test\",\r\n  \"email\": \"hilal1@gmail.com\",\r\n  \"phoneNumber\": \"987456123\",\r\n  \"password\": \"Test123!\",\r\n  \"tcNo\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/UpdateUser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"UpdateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/DeleteUser/hilal@gmail.com",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"DeleteUser",
+								"hilal@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Dues To Apartments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"apartmentId\": 1,\r\n    \"amount\": 100,\r\n    \"month\": \"02\",\r\n    \"year\": \"2024\"\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/AssignDuesToApartments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"AssignDuesToApartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enter Monthly Building Bills",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"buildingId\": 1,\r\n  \"month\": \"2024-02-10T19:54:40.862Z\",\r\n  \"electricityAmount\": 100,\r\n  \"waterAmount\": 200,\r\n  \"gasAmount\": 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/EnterMonthlyBuildingBills",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"EnterMonthlyBuildingBills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Apartments Payments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/GetApartmentsPayments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"GetApartmentsPayments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Apartments Debts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/ViewApartmentsDebts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"ViewApartmentsDebts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Regular Payers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJqdGkiOiJlNjdiMGYyYS05ZGY1LTRkYjctYTdiMC0xNWI4NTMyMmFlOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwODE4NzYzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.zLwfCJFTwGGgqm01K1w6jQYAFlIeoy70wKzBt_T-PEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7135/api/Admin/ViewRegularPayers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Admin",
+								"ViewRegularPayers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Endpoints",
+			"item": [
+				{
+					"name": "Get Bills and Dues",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Make Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSGlsYWwxIiwianRpIjoiM2UxODBkY2MtYzQzNS00YWRhLWIxMGUtOGI3NDA1YjFkZjQyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTcwODI0Nzk3NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3OCJ9.p2ZEqodW83_tNc6sEuijLgfXzTrBZGqkZ0NKdcOkBX4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"apartmentId\": 1,\r\n  \"month\": \"2024-02-11T09:18:30.456Z\",\r\n  \"isDues\": false,\r\n  \"isBill\": true,\r\n  \"method\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/User/MakePayment/Pay",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"User",
+								"MakePayment",
+								"Pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token Endpoints",
+			"item": [
+				{
+					"name": "Admin Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"admin@example.com\",\r\n  \"password\": \"Admin123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Token/AdminCreateToken",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Token",
+								"AdminCreateToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tcNo\": \"123321\",\r\n  \"phoneNumber\": \"987456123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7135/api/Token/UserCreateToken",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7135",
+							"path": [
+								"api",
+								"Token",
+								"UserCreateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "email",
+			"value": "hilal@gmail.com"
+		},
+		{
+			"key": "userId",
+			"value": "1"
+		}
+	]
+}

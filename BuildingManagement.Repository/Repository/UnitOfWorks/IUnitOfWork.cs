@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BuildingManagement.Repository
+namespace BuildingManagement.Repository;
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        int Commit();
-        Task<int> CommitAsync();
-
-        IDbContextTransaction BeginTransaction();
-    }
+    int Commit();
+    Task<int> CommitAsync();
+    IDbContextTransaction BeginTransaction();
 }

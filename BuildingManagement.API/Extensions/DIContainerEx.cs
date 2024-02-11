@@ -2,34 +2,32 @@
 using BuildingManagement.Repository.DIContainer;
 using BuildingManagement.Service.DIContainer;
 
-namespace BuildingManagement.API.Extensions
+namespace BuildingManagement.API.Extensions;
+public static class DIContainerEx
 {
-    public static class DIContainerEx
+    public static void AddDIContainer(this IServiceCollection services)
     {
-        public static void AddDIContainer(this IServiceCollection services)
-        {
-            services.AddTokenServiceDIContainer();
-            services.AddTokenRepositoryDIContainer();
+        services.AddTokenServiceDIContainer();
+        services.AddTokenRepositoryDIContainer();
 
-            services.AddBillServiceDIContainer();
-            services.AddBillRepositoryDIContainer();
+        services.AddBillServiceDIContainer();
+        services.AddBillRepositoryDIContainer();
 
-            services.AddDebtServiceDIContainer();
-            services.AddDebtRepositoryDIContainer();
+        services.AddDebtServiceDIContainer();
+        services.AddDebtRepositoryDIContainer();
 
-            services.AddDuesServiceDIContainer();
-            services.AddDuesRepositoryDIContainer();
+        services.AddDuesServiceDIContainer();
+        services.AddDuesRepositoryDIContainer();
 
-            services.AddPaymentServiceDIContainer();
-            services.AddPaymentRepositoryDIContainer();
+        services.AddPaymentServiceDIContainer();
+        services.AddPaymentRepositoryDIContainer();
 
-            services.AddUserServiceDIContainer();
-            services.AddUserRepositoryDIContainer();
+        services.AddUserServiceDIContainer();
+        services.AddUserRepositoryDIContainer();
 
-            services.AddApartmentServiceDIContainer();
-            services.AddApartmentRepositoryDIContainer();
+        services.AddApartmentServiceDIContainer();
+        services.AddApartmentRepositoryDIContainer();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-        }
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

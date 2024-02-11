@@ -2,15 +2,11 @@ using BuildingManagement.API.Extensions;
 using BuildingManagement.Entity;
 using BuildingManagement.Repository;
 using BuildingManagement.Repository.Repository.TokenRepository;
-using BuildingManagement.Service.Service.TokenServices.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,30 +21,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Building Management API", Version = "v1" });
-    //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    //{
-    //    Description = "JWT Authorization header using the Bearer scheme.",
-    //    Name = "Authorization",
-    //    In = ParameterLocation.Header,
-    //    Type = SecuritySchemeType.ApiKey,
-    //    Scheme = "Bearer"
-    //});
-
-    //// Güvenlik gereksinimini tanýmlama
-    //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    //    {
-    //        {
-    //            new OpenApiSecurityScheme
-    //            {
-    //                Reference = new OpenApiReference
-    //                {
-    //                    Type = ReferenceType.SecurityScheme,
-    //                    Id = "Bearer"
-    //                }
-    //            },
-    //            new string[] {}
-    //        }
-    //    });
 });
 builder.Services.AddAutoMapper(typeof(Program)); // IMapper
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -107,45 +79,13 @@ using (var serviceScope = app.Services.CreateScope())
     // Default Admin Oluþturma
     settingsService.CreateDefaultAdminAsync().GetAwaiter().GetResult();
 
-    // Default Apartman Oluþturma
+    // Default Bina Oluþturma
     settingsService.CreateDefaultBuildingAsync().GetAwaiter().GetResult();
 
     // Default Ödeme Tipleri Oluþturma
     settingsService.CraeteDefaultPaymentTypesAsync().GetAwaiter().GetResult();
 }
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRole>>();
-//    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-
-//    string adminRoleName = "Admin";
-//    if (!roleManager.RoleExistsAsync(adminRoleName).Result)
-//    {
-//        var UserRole = new UserRole
-//        {
-//            Name = adminRoleName
-//        };
-//        roleManager.CreateAsync(UserRole).Wait();
-//    }
-
-//    string adminUserName = "admin@example.com";
-//    if (userManager.FindByEmailAsync(adminUserName).Result == null)
-//    {
-//        User adminUser = new User
-//        {
-//            UserName = adminUserName,
-//            Email = adminUserName
-//        };
-
-//        IdentityResult result = userManager.CreateAsync(adminUser, "Admin123!").Result;
-
-//        if (result.Succeeded)
-//        {
-//            userManager.AddToRoleAsync(adminUser, adminRoleName).Wait();
-//        }
-//    }
-//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
