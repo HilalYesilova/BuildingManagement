@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagement.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240210211403_addTrigger")]
-    partial class addTrigger
+    [Migration("20240211152121_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
