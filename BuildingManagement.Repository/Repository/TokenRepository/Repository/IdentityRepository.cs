@@ -23,6 +23,7 @@ namespace BuildingManagement.Repository.Repository.TokenRepository.Repository
 
         public Task<IdentityResult> CreateUser(User user, string password)
         {
+
             return userManager.CreateAsync(user, password);
         }
 

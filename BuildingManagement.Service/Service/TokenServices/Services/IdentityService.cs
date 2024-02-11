@@ -18,6 +18,9 @@ public class IdentityService(
 
     public async Task<ResponseDto<int?>> CreateUser(UserCreateRequestDto request)
     {
+        var hasUser = await apartmentService.GetApartmentUserIdAsync(request.ApartmentId);
+        if(hasUser == null || hasUser.Data != 0) return ResponseDto<int?>.Fail("Bu Daireye Başka Bir Kullanıcı Atanmış!");
+
         var User = new User
         {
             Name = request.Name,

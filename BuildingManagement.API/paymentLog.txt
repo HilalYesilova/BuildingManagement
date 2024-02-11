@@ -1,0 +1,1 @@
+11.02.2024 12:54:54 - /api/User/MakePayment/Pay - {"Data":"\u00D6deme Ba\u015Far\u0131 \u0130le ger\u00E7ekle\u015Fmi\u015Ftir!","Errors":null,"AnyError":false}

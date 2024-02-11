@@ -29,7 +29,7 @@ namespace BuildingManagement.Service.Service.ApartmentServices
             return ResponseDto<int>.Success(apartment.Id);
         }
 
-        public async Task<ResponseDto<string>> AddUserToApartment(int apartmentId,User user)
+        public async Task<ResponseDto<string>> AddUserToApartment(int apartmentId, User user)
         {
             try
             {
@@ -41,6 +41,11 @@ namespace BuildingManagement.Service.Service.ApartmentServices
             {
                 return ResponseDto<string>.Fail(e.Message);
             }
+        }
+        public async Task<ResponseDto<int?>> GetApartmentUserIdAsync(int apartmentId)
+        {
+            var userId = await apartmentRepository.GetApartmentUserIdAsync(apartmentId);
+            return ResponseDto<int?>.Success(userId);
         }
     }
 }

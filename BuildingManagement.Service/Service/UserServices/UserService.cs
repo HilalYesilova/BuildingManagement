@@ -6,6 +6,7 @@ using BuildingManagement.Repository;
 using BuildingManagement.Repository.Repository.PaymentRepository;
 using BuildingManagement.Repository.Repository.UserRepository;
 using BuildingManagement.Service.Helpers;
+using BuildingManagement.Service.Extensions;
 
 namespace BuildingManagement.Service.Service.UserServices
 {
@@ -67,8 +68,8 @@ namespace BuildingManagement.Service.Service.UserServices
             if (apartment == null) return ResponseDto<string>.Fail("Tanımlı Daire Bulunamadı!");
             if (paymentRequest.IsDues)
             {
-                var dues = await userRepository.GetDuesInfoAsync(apartment.User.Id);
-                var duesInfo = dues.Where(d => d.Month == paymentRequest.Month.Month.ToString()).FirstOrDefault();
+                var dues = await userRepository.GetDuesInfoAsync((int)apartment.UserId);
+                var duesInfo = dues.Where(d => d.Month == paymentRequest.Month.MonthFormat()).FirstOrDefault();
                 if (duesInfo == null || duesInfo.IsPaid) return ResponseDto<string>.Fail("Bu Aidat Zaten ödenmiş!");
 
                 duesInfo.IsPaid = true;
@@ -99,18 +100,18 @@ namespace BuildingManagement.Service.Service.UserServices
                     Amount = duesInfo.Amount,
                     Month = duesInfo.Month.ToString(),
                     Year = duesInfo.Year.ToString(),
-                    UserId = duesInfo.Apartment.User.Id,
+                    UserId = (int)duesInfo.Apartment.UserId,
                     ApartmentId = duesInfo.Apartment.Id,
                     PaymentType = paymentType,
                     Dues = duesInfo
                 };
                 await paymentRepository.AddPaymentAsync(payment);
                 unitOfWork.Commit();
-
+                return ResponseDto<string>.Success("Ödeme Başarı İle gerçekleşmiştir!");
             }
-            if (paymentRequest.IsGasBill || paymentRequest.IsWaterBill || paymentRequest.IsElectricityBill)
+            if (paymentRequest.IsBill)
             {
-                var bills = await userRepository.GetBillsInfoAsync(apartment.User.Id);
+                var bills = await userRepository.GetBillsInfoAsync((int)apartment.UserId);
                 var billInfo = bills.Where(b => b.Month == paymentRequest.Month.Month.ToString()).FirstOrDefault();
                 if (billInfo == null || billInfo.IsPaid) return ResponseDto<string>.Fail("Bu Aidat Zaten ödenmiş!");
 
@@ -134,15 +135,16 @@ namespace BuildingManagement.Service.Service.UserServices
                     Amount = totalAmount,
                     Month = billInfo.Month.ToString(),
                     Year = billInfo.Year.ToString(),
-                    UserId = billInfo.Apartment.User.Id,
+                    UserId = (int)billInfo.Apartment.UserId,
                     ApartmentId = billInfo.Apartment.Id,
                     PaymentType = paymentType,
                     ApartmentBill = billInfo
                 };
                 await paymentRepository.AddPaymentAsync(payment);
                 unitOfWork.Commit();
+                return ResponseDto<string>.Success("Ödeme Başarı İle gerçekleşmiştir!");
             }
-            return ResponseDto<string>.Success(string.Empty);
+            return ResponseDto<string>.Fail("Lütfen Ödeme Yapmak İstediğiniz Borcu Seçiniz!");
         }
 
         public async Task<ResponseDto<List<UserRegularPayment>>> UserRegularPayment()
@@ -174,7 +176,7 @@ namespace BuildingManagement.Service.Service.UserServices
             {
                 return ResponseDto<List<UserRegularPayment>>.Fail("Yıllık düzenli ödeyen kullanıcı bulunamadı!");
             }
-           
+
         }
     }
 }

@@ -22,7 +22,7 @@ namespace BuildingManagement.Repository.Repository.TokenRepository.Repository
 
         public async Task<User?> FindUserAsync(string? TcNo, string? Phone)
         {
-            return await _context.Users.Where(u => u.TcNo == TcNo || u.PhoneNumber == Phone).FirstOrDefaultAsync();
+            return await _context.Users.Where(u => u.TcNo == TcNo && u.PhoneNumber == Phone).FirstOrDefaultAsync();
         }
         public async Task<User?> FindByNameAsync(string userName)
         {

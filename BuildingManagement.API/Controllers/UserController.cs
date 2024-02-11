@@ -1,4 +1,5 @@
-﻿using BuildingManagement.Entity;
+﻿using BuildingManagement.API.Filters;
+using BuildingManagement.Entity;
 using BuildingManagement.Model.Models.User;
 using BuildingManagement.Service.Service.DebtServices;
 using BuildingManagement.Service.Service.UserServices;
@@ -25,7 +26,8 @@ namespace BuildingManagement.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost("pay")]
+        [HttpPost("Pay")]
+        [LogOnSuccess("wwwroot/paymentLogs", "paymentLogs.txt")]
         public async Task<ActionResult> MakePayment(UserPaymentRequestDto paymentRequest)
         {
             var response = await userService.MakePaymentAsync(paymentRequest);

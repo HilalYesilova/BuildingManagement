@@ -13,5 +13,6 @@ namespace BuildingManagement.Repository.Repository.ApartmentRepository
         Task AddApartmentToBuildingAsync(Apartment apartment);
         Task<Building> GetBuildingInfo();
         Task AddUserToApartmentAsync(int apartmentId, User user);
+        Task<int?> GetApartmentUserIdAsync(int apartmentId);
     }
 }

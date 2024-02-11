@@ -13,9 +13,7 @@ namespace BuildingManagement.Model.Models.User
         public int ApartmentId { get; set; }
         public DateTime Month { get; set; }
         public bool IsDues { get; set; } = false;
-        public bool IsElectricityBill { get; set; } = false;
-        public bool IsWaterBill { get; set; } = false;
-        public bool IsGasBill { get; set; } = false;
+        public bool IsBill { get; set; } = false;
         public PaymentMethod Method { get; set; }
     }
 }

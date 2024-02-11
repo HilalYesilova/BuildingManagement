@@ -13,5 +13,6 @@ namespace BuildingManagement.Service.Service.ApartmentServices
     {
         Task<ResponseDto<int>> AddApartmentToBuilding(ApartmentCreateRequestDto apartmentCreateRequest);
         Task<ResponseDto<string>> AddUserToApartment(int apartmentId, User user);
+        Task<ResponseDto<int?>> GetApartmentUserIdAsync(int apartmentId);
     }
 }

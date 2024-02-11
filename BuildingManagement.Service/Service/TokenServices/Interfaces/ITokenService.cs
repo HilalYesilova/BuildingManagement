@@ -10,6 +10,6 @@ namespace BuildingManagement.Service.Service.TokenServices.Interfaces
 {
     public interface ITokenService
     {
-        Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDto request);
+        Task<ResponseDto<TokenCreateResponseDto>> Create(AdminTokenCreateRequestDto? Adminrequest, UserTokenCreateRequestDto? userRequest);
     }
 }

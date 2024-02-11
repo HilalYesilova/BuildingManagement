@@ -1,5 +1,6 @@
 ﻿using BuildingManagement.Entity;
 using BuildingManagement.Entity.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagement.Repository.Repository.ApartmentRepository
@@ -22,19 +23,21 @@ namespace BuildingManagement.Repository.Repository.ApartmentRepository
             var apartment = await _context.Apartments.Where(a => a.Id == apartmentId).FirstOrDefaultAsync();
             if (apartment != null)
             {
-                try
-                {
-                    apartment.UserId = user.Id;
-                    apartment.User = user;
-                    _context.Update(apartment);
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
-
+                apartment.UserId = user.Id;
+                apartment.User = user;
+                _context.Update(apartment);
             }
+        }
+
+        public async Task<int?> GetApartmentUserIdAsync(int apartmentId)
+        {
+            int? userId = 0;
+            var apartment = await _context.Apartments.Where(a => a.Id == apartmentId).FirstOrDefaultAsync();
+            if (apartment != null)
+            {
+                userId = apartment.UserId != null ? apartment.UserId : userId;
+            }
+            return userId;
         }
     }
 }

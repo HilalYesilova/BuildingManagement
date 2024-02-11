@@ -1,4 +1,5 @@
-﻿using BuildingManagement.Model.Models.Shared;
+﻿using Azure.Core;
+using BuildingManagement.Model.Models.Shared;
 using BuildingManagement.Model.Models.Token;
 using BuildingManagement.Service.Service.TokenServices.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -14,22 +15,22 @@ namespace BuildingManagement.Service.Service.TokenServices.Services;
 
 public class TokenService(IConfiguration configuration, ITokenRepository tokenRepository) : ITokenService
 {
-    public async Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDto request)
+    public async Task<ResponseDto<TokenCreateResponseDto>> Create(AdminTokenCreateRequestDto? adminrequest ,UserTokenCreateRequestDto? userRequest)
     {
-
-        var hasUser = await tokenRepository.FindUserAsync(request.TcNo,request.PhoneNumber);
-
-        if (hasUser is null)
+        var hasUser = new Entity.User();
+        if (userRequest != null)
         {
-            return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
+            hasUser = await tokenRepository.FindUserAsync(userRequest.TcNo, userRequest.PhoneNumber);
+        }
+        else
+        {
+            hasUser = await tokenRepository.FindByNameAsync(adminrequest!.UserName);
+            var checkPassword = await tokenRepository.CheckPasswordAsync(hasUser!, adminrequest.Password);
+
+            if (checkPassword == false) return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
         }
 
-        //var checkPassword = await tokenRepository.CheckPasswordAsync(hasUser!, request.Password);
-
-        //if (checkPassword == false)
-        //{
-        //    return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
-        //}
+        if (hasUser is null) return ResponseDto<TokenCreateResponseDto>.Fail("Username or password is wrong");
 
         var signatureKey = configuration.GetSection("TokenOptions")["SignatureKey"]!;
         var tokenExpireAsHour = configuration.GetSection("TokenOptions")["Expire"]!;
@@ -77,4 +78,5 @@ public class TokenService(IConfiguration configuration, ITokenRepository tokenRe
 
         return ResponseDto<TokenCreateResponseDto>.Success(responseDto);
     }
+
 }
