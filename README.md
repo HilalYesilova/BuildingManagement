@@ -45,13 +45,13 @@ Endpointlere atılacak istekler Postman ortamında işleyiş bazlı gruplandır�
 UserName = _admin@example.com_
 Password = _Admin123!_
 
-Projede rol bazlı yetkilendirmeler kullanılmıştır. Bu işlemlerin gerçekleştirilmesinde _Microsoft.AspNetCore.Identity_ kullanılmıştır.
-
-Yönetici, username ve password ile jwt token alarak _Admin_ rolünün erişebileceği endpointler ile işlemler sağlayabilir.
+* Projede rol bazlı yetkilendirmeler kullanılmıştır. Bu işlemlerin gerçekleştirilmesinde _Microsoft.AspNetCore.Identity_ kullanılmıştır.
+  
+* Yönetici, username ve password ile jwt token alarak _Admin_ rolünün erişebileceği endpointler ile işlemler sağlayabilir.
 
 * Proje ilk çalıştırmada Building tablosuna default olarak bir apartman/site bilgileri insert edilir. Bundan sonraki işlemler bu apartman/site içerisine daire atanarak gerçekleşir.
 
-* Yönetici, tek tek daire bilgilerini doldurarak ilgili dairelere kullanıcıların atamasını yapar.
+* Yönetici, tek tek daire bilgilerini doldurarak ilgili dairelere yeni oluşturduğu kullanıcıların atamasını yapar. Yönetici aynı zamanda oluşturduğu kullanıcılara role ataması yapmalıdır. Kullanıcı rolümüz _User_'dır.
 
 * Yönetici, Kullanım -> Yönetici işlemlerinde belirtilen endpointler dahilinde işlemlerini gerçekleştirebilir.
 
