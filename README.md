@@ -6,8 +6,8 @@ Bu proje, bir apartman veya site yönetimi için backend işlemlerini gerçekle�
 Endpointlere atılacak istekler Postman ortamında işleyiş bazlı gruplandırılmış ve hazırlanmıştır. İstekleri atabilmek adına _BUILDING MANAGEMENT API.postman_collection.json_ dosyasını Postman'e import edebilirsiniz.
 
 ## Gereksinimler
-* .NET 8 API kullanılarak * oluşturulmuştur.
-* RESTful servisler * kullanılmıştır.
+* .NET 8 API kullanılarak  oluşturulmuştur.
+* RESTful servisler  kullanılmıştır.
 * MS SQL Server kullanılarak veritabanı yönetilir.
 * EF Core ORM kullanılmıştır.
 
@@ -134,11 +134,6 @@ Yönetici, username ve password ile jwt token alarak _Admin_ rolünün erişebil
 * Id
 * Method
 
-
-### Tablolar Arası İlişki
-
-
-![Relationship](https://ibb.co/FHGQG71)
 
 
 ## Başlangıç
